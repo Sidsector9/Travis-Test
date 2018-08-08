@@ -4,6 +4,16 @@ sudo: required
 php:
   - '5.6'
   - '7.1'
-branches:
-  only:
-    - master
+
+install:
+  - composer create-project wp-coding-standards/wpcs --no-dev
+  # - wget -qO ee rt.cx/ee && sudo bash ee
+  # - sudo ee stack install --web
+
+script:
+  - composer create-project wp-coding-standards/wpcs --no-dev
+  - echo $TRAVIS_BRANCH
+  # - sudo ee site create automation.give.test --wp --user=admin --pass=admin
+  # - cd /var/www/automation.give.test/htdocs/
+  # - sudo chmod 777 -R ./
+  # - cd /var/www/automation.give.test/htdocs/wp-content/plugins/

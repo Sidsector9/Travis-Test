@@ -1,0 +1,10 @@
+dist: trusty
+language: php
+sudo: required
+php:
+  - '5.6'
+  - '7.1'
+  - nightly
+branches:
+  only:
+    - master

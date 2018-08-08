@@ -5,7 +5,8 @@
  */
 
 function change_blog_title( $output, $show ) {
-    if ( $show != 'name' ) { 
+
+    if ( 'name' !== $show ) { 
     	return $output;
     }
 

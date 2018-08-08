@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: Travis Test
+ * Text Domain: travis-test
  */
 
 function change_blog_title( $output, $show ) {
@@ -8,7 +9,7 @@ function change_blog_title( $output, $show ) {
     	return $output;
     }
 
-    return 'Travis Title';
+    return __( 'Travis Title', 'travis-test' );
 }
 
 add_filter( 'bloginfo', 'change_blog_title', 10, 2 );

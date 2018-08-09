@@ -11,7 +11,7 @@ install:
 
 script:
   - echo $TRAVIS_BRANCH
-  - git clone -b $TRAVIS_BRANCH --single-branch git@github.com:Sidsector9/Travis-Test.git
+  - git clone -b $TRAVIS_BRANCH --single-branch https://github.com/Sidsector9/Travis-Test.git
   - cd Travis-Test
   - ls -1
   # - sudo ee site create automation.give.test --wp --user=admin --pass=admin

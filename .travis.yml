@@ -16,7 +16,7 @@ git:
   quiet: true
 
 before_install:
-  - chmod +x docker-compose.yml
+  - sudo chmod +x docker-compose.yml
 
 install:
   # - wget -qO ee rt.cx/ee && sudo bash ee

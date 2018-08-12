@@ -1,7 +1,7 @@
-dist: trusty
+dist: precise
+# sudo: required
+# group: stable
 language: php
-sudo: false
-group: stable
 
 php:
   - '5.6'
@@ -15,15 +15,16 @@ git:
   quiet: true
 
 before_install:
-  - sudo chmod +x docker-compose.yml
-  - while ! mysqladmin ping --silent; do sleep 5; echo "Waiting for MySQL..."; done
+  - sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
 
 install:
+  - sudo chmod +x docker-compose.yml
+  - docker-compose up -d
   # - wget -qO ee rt.cx/ee && sudo bash ee
   # - sudo ee stack install --web
 
 before_script:
-  - docker-compose up -d
   # - docker exec -i $(docker-compose ps -q db) mysql -u root -pwordpress -D wordpress < wordpress.sql
 
 script:

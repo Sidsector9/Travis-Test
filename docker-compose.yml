@@ -14,6 +14,8 @@ services:
 
   wordpress:
     image: wordpress:latest
+    volumes:
+      - ~/wordpress_data:/var/www/html
     depends_on:
       - db
     ports:
@@ -31,6 +33,9 @@ services:
       MYSQL_ROOT_PASSWORD: wordpress
     ports:
       - "8080:80"
+
+  wpcli:
+    image: wordpress:cli 
 
 volumes:
   db_data:

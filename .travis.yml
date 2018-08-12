@@ -1,7 +1,7 @@
 dist: trusty
 language: php
-sudo: required
-group: edge
+sudo: false
+group: stable
 
 php:
   - '5.6'

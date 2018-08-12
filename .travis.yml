@@ -35,4 +35,4 @@ script:
   # - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
 
   - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "SHOW DATABASES;"
-  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "SHOW TABLES;"
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "SHOW TABLES;"

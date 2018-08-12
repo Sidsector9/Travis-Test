@@ -30,8 +30,11 @@ before_script:
 
 script:
   # - docker-compose up -d
-  - echo "============"
-  - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"
-  - echo "xxxxxxxxxxxx"
+  # - echo "============"
+  # - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"
+  # - echo "xxxxxxxxxxxx"
+  # - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
   - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress < wordpress.sql
   - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"

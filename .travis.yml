@@ -11,14 +11,6 @@ services:
   - docker
   - mysql
 
-env:
-  global:
-    - MYSQL_USER="root"
-    - MYSQL_HOST="localhost"
-    - MYSQL_PORT="3406"
-  matrix:
-    - MYSQL_IMAGE=mysql:5.7
-
 git:
   quiet: true
 
@@ -30,11 +22,11 @@ before_script:
   - docker-compose up -d
   # wait for MySQL to become available
   - |
-    until mysql -u"${MYSQL_USER}" -h "${MYSQL_HOST}" -P "${MYSQL_PORT}" -e 'SELECT 1' > /dev/null; do
-      >&2 echo "MySQL ${MYSQL_HOST}:${MYSQL_PORT} for user ${MYSQL_USER} is unavailable - sleeping"
+    until mysql -uwordpress -hlocalhost -P3306 -e 'SELECT 1' > /dev/null; do
+      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
       sleep 1
     done
-    >&2 echo "MySQL ${MYSQL_HOST}:${MYSQL_PORT} is up"
+    >&2 echo "MySQL localhost:3306 is up"
 
 script:
   # - docker-compose up -d

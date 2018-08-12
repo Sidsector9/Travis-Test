@@ -8,10 +8,6 @@ php:
 services:
   - docker
 
-addons:
-  hosts:
-    - automation.give.test
-
 git:
   quiet: true
 
@@ -24,6 +20,7 @@ install:
 
 before_script:
   - docker-compose up -d
+  - docker exec -i $(docker-compose ps -q db) mysql -u root -pwordpress -D wordpress < wordpress.sql
 
 
 script:

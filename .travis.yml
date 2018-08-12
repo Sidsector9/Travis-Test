@@ -11,6 +11,16 @@ services:
   - docker
   - mysql
 
+env:
+  global:
+    - MYSQL_USER="root"
+    - MYSQL_HOST="127.0.0.1"
+    - MYSQL_PORT="3406"
+  matrix:
+    - MYSQL_IMAGE=mysql:5.5
+    - MYSQL_IMAGE=mysql:5.6
+    - MYSQL_IMAGE=mysql:5.7
+
 git:
   quiet: true
 
@@ -18,7 +28,16 @@ before_install:
   - sudo chmod +x docker-compose.yml
 
 before_script:
+  # run docker containers
+  - docker-compose up -d
+  # wait for MySQL to become available
+  - |
+    until mysql -u"${MYSQL_USER}" -h "${MYSQL_HOST}" -P "${MYSQL_PORT}" -e 'SELECT 1' > /dev/null; do
+      >&2 echo "MySQL ${MYSQL_HOST}:${MYSQL_PORT} for user ${MYSQL_USER} is unavailable - sleeping"
+      sleep 1
+    done
+    >&2 echo "MySQL ${MYSQL_HOST}:${MYSQL_PORT} is up"
 
 script:
-  - docker-compose up -d
+  # - docker-compose up -d
   - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress < wordpress.sql

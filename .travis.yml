@@ -25,16 +25,11 @@ before_script:
   - ./sql-wait.sh
 
 script:
-  - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"
+  # - ./sql-wait.sh
+  # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
 
-  - ./sql-wait.sh
-  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
+  # - ./sql-wait.sh
+  # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
 
-  - ./sql-wait.sh
-  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
-
-  - ./sql-wait.sh
+  # - ./sql-wait.sh
   - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
-
-  - ./sql-wait.sh
-  - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"

@@ -1,9 +1,38 @@
 dist: trusty
 language: php
 sudo: required
+group: edge
+
 php:
   - '5.6'
   - '7.1'
-branches:
-  only:
-    - master
+
+services:
+  - docker
+  - mysql
+
+git:
+  quiet: true
+
+before_install:
+  - sudo chmod +x docker-compose.yml
+  - sudo chmod +x sql-wait.sh
+
+before_script:
+  # run docker containers
+  - docker-compose up -d
+  # wait for MySQL to become available
+  - ./sql-wait.sh
+
+script:
+  - ./sql-wait.sh
+  # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
+
+  # - ./sql-wait.sh
+  # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
+
+  # - ./sql-wait.sh
+  # - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
+
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "SHOW DATABASES;"
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "SHOW TABLES;"

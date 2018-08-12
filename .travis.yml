@@ -16,53 +16,25 @@ git:
 
 before_install:
   - sudo chmod +x docker-compose.yml
+  - sudo chmod +x sql-wait.sh
 
 before_script:
   # run docker containers
   - docker-compose up -d
   # wait for MySQL to become available
-  - |
-    until docker exec travistest_db_1 mysql -uwordpress -pwordpress wordpress -e "SELECT 1" > /dev/null; do
-      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
-      sleep 1
-    done
-    >&2 echo "MySQL localhost:3306 is up"
+  - ./sql-wait.sh
 
 script:
   - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"
 
-  - |
-    until docker exec travistest_db_1 mysql -uwordpress -pwordpress wordpress -e "SELECT 1" > /dev/null; do
-      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
-      sleep 1
-    done
-    >&2 echo "MySQL localhost:3306 is up"
-
+  - ./sql-wait.sh
   - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
 
-  - |
-    until docker exec travistest_db_1 mysql -uwordpress -pwordpress wordpress -e "SELECT 1" > /dev/null; do
-      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
-      sleep 1
-    done
-    >&2 echo "MySQL localhost:3306 is up"
-
+  - ./sql-wait.sh
   - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
 
-  - |
-    until docker exec travistest_db_1 mysql -uwordpress -pwordpress wordpress -e "SELECT 1" > /dev/null; do
-      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
-      sleep 1
-    done
-    >&2 echo "MySQL localhost:3306 is up"
-
+  - ./sql-wait.sh
   - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
 
-  - |
-    until docker exec travistest_db_1 mysql -uwordpress -pwordpress wordpress -e "SELECT 1" > /dev/null; do
-      >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
-      sleep 1
-    done
-    >&2 echo "MySQL localhost:3306 is up"
-
+  - ./sql-wait.sh
   - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress -e "SHOW TABLES;"

@@ -16,6 +16,7 @@ git:
 
 before_install:
   - sudo chmod +x docker-compose.yml
+  - while ! mysqladmin ping --silent; do sleep 5; echo "Waiting for MySQL..."; done
 
 install:
   # - wget -qO ee rt.cx/ee && sudo bash ee

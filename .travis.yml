@@ -4,7 +4,7 @@ sudo: required
 group: edge
 
 php:
-  - '5.6'
+  - '5.3'
   - '7.1'
 
 services:
@@ -25,11 +25,14 @@ before_script:
   - ./sql-wait.sh
 
 script:
-  # - ./sql-wait.sh
+  - ./sql-wait.sh
   # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress wordpress -e "DROP DATABASE IF EXISTS wordpress;"
 
   # - ./sql-wait.sh
   # - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "CREATE DATABASE IF NOT EXISTS wordpress;"
 
   # - ./sql-wait.sh
-  - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
+  # - docker exec -i travistest_db_1  mysql -uroot -pwordpress wordpress < wordpress.sql
+
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "SHOW DATABASES;"
+  - docker exec -i travistest_db_1  mysql -uwordpress -pwordpress -e "SHOW TABLES;"

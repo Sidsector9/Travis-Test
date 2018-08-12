@@ -22,7 +22,7 @@ before_script:
   - docker-compose up -d
   # wait for MySQL to become available
   - |
-    until mysql -uwordpress -pwordpress -hlocalhost -P3306 -e 'SELECT 1' > /dev/null; do
+    until docker exec -i docker-wordpress_db_1  mysql -uwordpress -pwordpress -P3306 wordpress -e "SELECT 1" > /dev/null; do
       >&2 echo "MySQL localhost:3306 for user wordpress is unavailable - sleeping"
       sleep 1
     done

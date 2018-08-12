@@ -8,9 +8,9 @@ services:
       - ./wordpress.sql:/docker-entrypoint-initdb.d/wordpress.sql
     restart: always
     environment:
+      MYSQL_USER: wordpress
       MYSQL_ROOT_PASSWORD: wordpress
       MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
 
   wordpress:

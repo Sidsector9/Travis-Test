@@ -14,11 +14,9 @@ services:
 env:
   global:
     - MYSQL_USER="root"
-    - MYSQL_HOST="127.0.0.1"
+    - MYSQL_HOST="localhost"
     - MYSQL_PORT="3406"
   matrix:
-    - MYSQL_IMAGE=mysql:5.5
-    - MYSQL_IMAGE=mysql:5.6
     - MYSQL_IMAGE=mysql:5.7
 
 git:

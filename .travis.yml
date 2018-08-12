@@ -1,4 +1,4 @@
-dist: precise
+dist: trusty
 language: php
 sudo: required
 group: edge
@@ -22,7 +22,6 @@ install:
   # - sudo ee stack install --web
 
 before_script:
-  - phpenv config-add travisphp.ini
   - docker-compose up -d
   - docker exec -i $(docker-compose ps -q db) mysql -u root -pwordpress -D wordpress < wordpress.sql
 

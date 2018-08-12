@@ -28,6 +28,7 @@ before_script:
 
 script:
   - ls -1
+  - docker ps
   # - sudo ee site create automation.give.test --wp --user=admin --pass=admin
   # - cd /var/www/automation.give.test/htdocs/
   # - sudo chmod 777 -R ./
